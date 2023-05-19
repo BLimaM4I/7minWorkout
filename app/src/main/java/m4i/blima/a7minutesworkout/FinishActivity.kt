@@ -1,0 +1,29 @@
+package m4i.blima.a7minutesworkout
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import m4i.blima.a7minutesworkout.databinding.ActivityFinishBinding
+
+class FinishActivity : AppCompatActivity() {
+
+    private var binding: ActivityFinishBinding? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityFinishBinding.inflate(layoutInflater)
+
+        setContentView(binding?.root)
+
+        setSupportActionBar(binding?.toolbarFinishActivity)
+        if (supportActionBar != null) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
+        binding?.toolbarFinishActivity?.setNavigationOnClickListener {
+            onBackPressed()
+        }
+        binding?.btnFinish?.setOnClickListener {
+            finish()
+        }
+    }
+}
