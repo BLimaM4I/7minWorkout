@@ -1,5 +1,6 @@
 package m4i.blima.a7minutesworkout
 
+import android.app.Dialog
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
@@ -11,6 +12,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import m4i.blima.a7minutesworkout.databinding.ActivityExerciseBinding
+import m4i.blima.a7minutesworkout.databinding.DialogCustomBackConfirmationBinding
 import java.util.Locale
 
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -43,16 +45,35 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
 
-        exerciseList = Constants.defaultExerciseList()
-
-        tts = TextToSpeech(this, this)
-
         binding?.toolbarExercise?.setNavigationOnClickListener {
-            onBackPressed()
+            customDialogBackButton()
         }
+
+        exerciseList = Constants.defaultExerciseList()
+        tts = TextToSpeech(this, this)
 
         setupRestView()
         setupExerciseStatusRecyclerView()
+    }
+
+    private fun customDialogBackButton() {
+        val customDialog = Dialog(this)
+        val dialogBinding = DialogCustomBackConfirmationBinding.inflate(layoutInflater)
+        customDialog.setContentView(dialogBinding.root)
+        customDialog.setCanceledOnTouchOutside(false)
+        dialogBinding.btnYes.setOnClickListener {
+            this@ExerciseActivity.finish()
+            customDialog.dismiss()
+        }
+        dialogBinding.btnNo.setOnClickListener {
+            customDialog.dismiss()
+        }
+        customDialog.show()
+
+    }
+
+    override fun onBackPressed() {
+        customDialogBackButton()
     }
 
     private fun setupExerciseStatusRecyclerView() {
