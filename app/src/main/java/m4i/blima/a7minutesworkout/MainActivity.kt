@@ -1,10 +1,8 @@
 package m4i.blima.a7minutesworkout
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.FrameLayout
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import m4i.blima.a7minutesworkout.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +16,10 @@ class MainActivity : AppCompatActivity() {
 
         binding?.flStart?.setOnClickListener {
             val intent = Intent(this, ExerciseActivity::class.java)
+            startActivity(intent)
+        }
+        binding?.flBMI?.setOnClickListener {
+            val intent = Intent(this, BMIActivity::class.java)
             startActivity(intent)
         }
     }
